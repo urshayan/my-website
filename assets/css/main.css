@@ -1,0 +1,95 @@
+:root {
+  --bg: #181818;
+  --surface: #1f1f1f;
+  --text: #e6e6e6;
+  --muted: #a0a0a0;
+  --border: #2a2a2a;
+  --accent: #6aa3ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.2rem 1.5rem;
+}
+
+.site-header {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header h1 {
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+.main-nav {
+  margin-top: 1.6rem;
+}
+
+.main-nav a {
+  margin-right: 1.4rem;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  position: relative;
+}
+
+.main-nav a:hover {
+  color: var(--accent);
+}
+
+main {
+  background: var(--bg);
+}
+
+h2 {
+  margin-top: 3.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+p {
+  color: var(--text);
+}
+
+ul {
+  padding-left: 1.3rem;
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  margin-top: 4.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  background: var(--bg);
+}

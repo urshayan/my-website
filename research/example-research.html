@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tiny ANSI Research | Shayan Ijaz</title>
+
+  <style>
+    :root {
+      --bg: #181818;
+      --surface: #1f1f1f;
+      --text: #e6e6e6;
+      --muted: #b3b3b3;
+      --accent: #7aa2f7;
+      --border: #2b2b2b;
+      --code-bg: #121212;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    header {
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-size: 2.7rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+
+    h2 {
+      margin-top: 2.5rem;
+      margin-bottom: 0.8rem;
+      font-size: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.3rem;
+    }
+
+    p {
+      color: var(--muted);
+      margin: 0.7rem 0;
+    }
+
+    ul {
+      margin: 1rem 0 0 1.2rem;
+    }
+
+    li {
+      margin: 0.45rem 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin-top: 1rem;
+    }
+
+    code {
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.95rem;
+      color: #dddddd;
+    }
+
+    footer {
+      margin-top: 5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    nav a {
+      margin-right: 1.2rem;
+      color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header>
+      <h1>Tiny ANSI: Design & Technical Research</h1>
+      <p class="subtitle">
+        An in-depth exploration of a minimal C/C++ library for terminal styling
+      </p>
+
+      <nav>
+        <a href="../research.html">Research</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../index.html">Home</a>
+      </nav>
+    </header>
+
+    <section>
+      <h2>Abstract</h2>
+      <p>
+        This research documents the design decisions, implementation techniques,
+        and evaluation of Tiny ANSI, a header-only C/C++ library for styled
+        terminal output. The goal is to enable readable, maintainable, and
+        minimalistic terminal output in CLI applications.
+      </p>
+    </section>
+
+    <section>
+      <h2>Introduction</h2>
+      <p>
+        ANSI escape codes provide control over text color, background, and effects
+        in terminals. While powerful, using them directly can make code
+        unreadable. Tiny ANSI addresses this problem by offering a concise,
+        predictable API while maintaining full flexibility.
+      </p>
+    </section>
+
+    <section>
+      <h2>Problem Statement</h2>
+      <p>
+        Developers often struggle with terminal output readability. Existing
+        libraries can be heavy or complex, introducing dependencies or
+        abstractions that are unnecessary for small tools or experimental code.
+      </p>
+    </section>
+
+    <section>
+      <h2>Design Goals</h2>
+      <ul>
+        <li>Header-only implementation for easy integration</li>
+        <li>No external dependencies</li>
+        <li>Readable and explicit API mapping to ANSI codes</li>
+        <li>Minimal overhead, zero runtime allocations</li>
+        <li>Cross-platform support (Linux, macOS, Windows)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Implementation Details</h2>
+      <p>
+        Tiny ANSI exposes a set of constants and helper functions for:
+      </p>
+      <ul>
+        <li>Foreground and background colors</li>
+        <li>Text effects (bold, underline, blink)</li>
+        <li>Formatted output</li>
+        <li>Log messages with levels: INFO, WARN, ERROR, DEBUG, FATAL</li>
+        <li>Fatal error handling with file and line reporting</li>
+      </ul>
+
+      <p>Example usage:</p>
+      <pre><code>
+#define TINY_ANSI_IMPLEMENTATION
+#include "tinyansi.h"
+
+int main() {
+    tansi_init();
+
+    tansi_println("Hello, Tiny ANSI!", TANSI_GREEN);
+    tansi_log(TANSI_WARN, "Low memory warning");
+    tansi_fatal("FATAL", "Critical error occurred", __FILE__, __LINE__);
+
+    return 0;
+}
+      </code></pre>
+    </section>
+
+    <section>
+      <h2>Evaluation</h2>
+      <p>
+        Tiny ANSI was tested across multiple terminals and platforms. It successfully
+        enabled styled output without any external dependencies and maintained
+        predictable behavior. Minimal code changes were needed to integrate
+        into existing projects.
+      </p>
+    </section>
+
+    <section>
+      <h2>Conclusion</h2>
+      <p>
+        Tiny ANSI demonstrates that a small, well-structured library can provide
+        expressive terminal styling while keeping code clean and maintainable.
+        Its header-only, zero-dependency approach makes it suitable for small tools,
+        experiments, and system utilities.
+      </p>
+    </section>
+
+    <section>
+      <h2>References & Links</h2>
+      <ul>
+        <li>
+          <a href="https://github.com/urshayan/Tiny_Ansi" target="_blank">
+            GitHub Repository
+          </a>
+        </li>
+        <li>
+          ANSI Escape Codes Standard - <a href="https://en.wikipedia.org/wiki/ANSI_escape_code" target="_blank">Wikipedia</a>
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>© 2025 Shayan Ijaz</p>
+    </footer>
+  </main>
+</body>
+</html>
