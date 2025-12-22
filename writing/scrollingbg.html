@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Implementing a Scrolling Background in Raylib | Shayan Ijaz</title>
+
+  <link rel="stylesheet" href="../assets/css/main.css" />
+
+  <meta name="description" content="Notes and implementation details on creating a looping scrolling background in Raylib using C/C++." />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>Implementing a Scrolling Background in Raylib</h1>
+      <p class="subtitle">
+        Notes on creating a seamless looping background for 2D games
+      </p>
+
+      <nav class="main-nav">
+        <a href="../writing.html">Writing</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../index.html">Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Metadata -->
+    <section>
+      <p class="subtitle">
+        Published: <time datetime="2025-01-10">January 10, 2025</time> ·
+        Tags: Game Development, Raylib, C++
+      </p>
+    </section>
+
+    <!-- Introduction -->
+    <section>
+      <h2>Introduction</h2>
+      <p>
+        In 2D games, a scrolling background is a simple but powerful technique
+        to create a sense of motion. This post documents a minimal and practical
+        approach to implementing a looping background in Raylib using C++.
+      </p>
+    </section>
+
+    <!-- Problem -->
+    <section>
+      <h2>Problem Statement</h2>
+      <p>
+        A static background makes movement feel artificial. The challenge is
+        to move a background texture continuously while ensuring it loops
+        seamlessly without visible jumps or artifacts.
+      </p>
+    </section>
+
+    <!-- Approach -->
+    <section>
+      <h2>Approach</h2>
+      <p>
+        The approach relies on maintaining a horizontal offset that is updated
+        every frame. Two copies of the same texture are drawn side by side.
+        When one leaves the screen, its position is reset.
+      </p>
+    </section>
+
+    <!-- Code -->
+    <section>
+      <h2>Implementation</h2>
+      <pre><code>
+float bgX = 0.0f;
+float scrollSpeed = 100.0f;
+
+void UpdateBackground(float delta) {
+    bgX -= scrollSpeed * delta;
+    if (bgX <= -background.width) {
+        bgX = 0;
+    }
+}
+
+void DrawBackground() {
+    DrawTexture(background, bgX, 0, WHITE);
+    DrawTexture(background, bgX + background.width, 0, WHITE);
+}
+      </code></pre>
+    </section>
+
+    <!-- Observations -->
+    <section>
+      <h2>Observations</h2>
+      <ul>
+        <li>Using two textures avoids conditional branching during draw</li>
+        <li>Frame-rate independence is crucial for smooth scrolling</li>
+        <li>Large textures should be GPU-friendly to avoid stutter</li>
+      </ul>
+    </section>
+
+    <!-- Pitfalls -->
+    <section>
+      <h2>Common Pitfalls</h2>
+      <ul>
+        <li>Using integer positions instead of floats</li>
+        <li>Not accounting for delta time</li>
+        <li>Improper texture sizing causing seams</li>
+      </ul>
+    </section>
+
+    <!-- Conclusion -->
+    <section>
+      <h2>Conclusion</h2>
+      <p>
+        A scrolling background is a small system with a big perceptual impact.
+        Keeping the logic minimal and deterministic ensures smooth visuals and
+        predictable behavior.
+      </p>
+    </section>
+
+    <!-- References -->
+    <section>
+      <h2>References</h2>
+      <ul>
+        <li>
+          <a href="https://www.raylib.com/" target="_blank">Raylib Official Website</a>
+        </li>
+        <li>
+          <a href="https://github.com/raysan5/raylib" target="_blank">Raylib GitHub</a>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 Shayan Ijaz</p>
+    </div>
+  </footer>
+</body>
+</html>
