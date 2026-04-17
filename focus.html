@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Current Focus — Shayan Ijaz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── FOCUS GRID ── */
+    .focus-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border);
+    }
+    .focus-card {
+      background: var(--ink); padding: 44px 36px;
+      transition: background 0.2s; position: relative; overflow: hidden;
+    }
+    .focus-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--amber-faint); opacity: 0;
+      transition: opacity 0.25s; pointer-events: none;
+    }
+    .focus-card:hover { background: var(--ink2); }
+    .focus-card:hover::after { opacity: 1; }
+    .fc-badge {
+      position: absolute; top: 22px; right: 22px;
+      font-family: var(--mono); font-size: 9px;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      border: 1px solid var(--border); padding: 3px 9px;
+      color: var(--dim);
+    }
+    .fc-badge.active { color: var(--amber); border-color: var(--amber-dim); }
+    .fc-num  { font-family: var(--mono); font-size: 44px; font-weight: 300; color: var(--dim); line-height: 1; margin-bottom: 22px; display: block; }
+    .fc-title { font-family: var(--display); font-size: 24px; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
+    .fc-desc { font-family: var(--mono); font-size: 12px; color: var(--muted); line-height: 1.75; font-weight: 300; }
+
+    /* ── LEARNING LOG ── */
+    .log { display: flex; flex-direction: column; }
+    .log-row {
+      display: grid; grid-template-columns: 160px 1fr;
+      gap: 32px; padding: 28px 0;
+      border-top: 1px solid var(--border); align-items: start;
+    }
+    .log-row:last-child { border-bottom: 1px solid var(--border); }
+    .log-date  { font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: 0.1em; padding-top: 4px; }
+    .log-title { font-family: var(--display); font-size: 19px; font-weight: 700; margin-bottom: 6px; }
+    .log-desc  { font-size: 14px; color: var(--muted); font-weight: 300; line-height: 1.65; }
+
+    @media (max-width: 720px) {
+      .focus-grid { grid-template-columns: 1fr; }
+      .log-row { grid-template-columns: 1fr; gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html"><span class="prompt">~/</span>shayan_ijaz</a>
+      <ul class="nav-links">
+        <li><a href="focus.html" class="active">Focus</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html">Writing</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="page-header">
+      <div class="eyebrow">Current Focus</div>
+      <h1 class="page-title">What I'm <em>Building</em></h1>
+      <p class="page-desc">Active projects and areas of exploration — updated as things shift. Most of this is driven by curiosity and the desire to understand systems at a low level.</p>
+    </div>
+  </div>
+
+  <!-- ACTIVE WORK -->
+  <div class="wrap">
+    <div class="section">
+      <div class="section-label">Active Work <span class="count">// 04 items</span></div>
+      <div class="focus-grid">
+
+        <div class="focus-card">
+          <span class="fc-badge active">In Progress</span>
+          <span class="fc-num">01</span>
+          <div class="fc-title">Computer Vision Library in C++</div>
+          <div class="fc-desc">Implementing a simple computer vision library to do interesting computer vision stuff in C++... materials,Goal: understand every pixel.</div>
+          <div style="margin-top:20px"><span class="tag-amber">C++</span></div>
+        </div>
+
+        <div class="focus-card">
+          <span class="fc-badge active">In Progress</span>
+          <span class="fc-num">02</span>
+          <div class="fc-title">OS Internals &amp; Low-level Systems</div>
+          <div class="fc-desc">Exploring memory management, scheduling algorithms, syscall interfaces, and ELF binary loading through baremetal experiments. Writing bootloaders to build intuition for what a running program actually is.</div>
+          <div style="margin-top:20px"><span class="tag-amber">C / x86 ASM</span></div>
+        </div>
+
+        <div class="focus-card">
+          <span class="fc-badge active">In Progress</span>
+          <span class="fc-num">03</span>
+          <div class="fc-title">2D Game Engine</div>
+          <div class="fc-desc">Game framework on top of raylib (C++) with a Lua scripting layer. Entity-component architecture, scene graph, asset pipeline, and hot-reload for game logic without engine recompilation.</div>
+          <div style="margin-top:20px"><span class="tag-amber">C++ / Lua</span></div>
+        </div>
+
+        <div class="focus-card">
+          <span class="fc-badge">Exploring</span>
+          <span class="fc-num">04</span>
+          <div class="fc-title">Artificial Intelligence</div>
+          <div class="fc-desc">To explore the world of AI..and its practical implementation to solve a real life problem or reach to a specific goal...</div>
+          <div style="margin-top:20px"><span class="tag-amber">Python / C++</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- LEARNING LOG -->
+   <!--
+  
+  <div class="wrap">
+    <div class="section">
+      <div class="section-label">Learning Log <span class="count">// recent milestones</span></div>
+      <div class="log">
+        <div class="log-row">
+          <div class="log-date">March 2025</div>
+          <div>
+            <div class="log-title">BVH construction in C</div>
+            <div class="log-desc">Implemented AABB intersection tests and recursive BVH splitting for the ray tracer. Huge render time improvement — O(n) → O(log n) per ray.</div>
+          </div>
+        </div>
+        <div class="log-row">
+          <div class="log-date">February 2025</div>
+          <div>
+            <div class="log-title">Lua scripting layer</div>
+            <div class="log-desc">Embedded Lua into the C++ game engine and set up FFI bindings for entity creation and input handling.</div>
+          </div>
+        </div>
+        <div class="log-row">
+          <div class="log-date">January 2025</div>
+          <div>
+            <div class="log-title">Baremetal bootloader</div>
+            <div class="log-desc">Wrote a Stage-1 and Stage-2 bootloader in x86 assembly. Boots to protected mode and hands off to a minimal C kernel.</div>
+          </div>
+        </div>
+        <div class="log-row">
+          <div class="log-date">December 2024</div>
+          <div>
+            <div class="log-title">Optical flow from scratch</div>
+            <div class="log-desc">Implemented Lucas-Kanade optical flow without OpenCV's flow functions — raw pixel math and gradient computation only.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+-->
+  <footer>
+    <p class="footer-text">
+      © 2025 Shayan Ijaz &nbsp;·&nbsp;
+      <a href="https://github.com/urshayan/my-website" target="_blank">Source on GitHub</a>
+    </p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

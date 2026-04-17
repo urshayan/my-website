@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Happens Before main() — Shayan Ijaz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="post.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="../index.html"><span class="prompt">~/</span>shayan_ijaz</a>
+      <ul class="nav-links">
+        <li><a href="../focus.html">Focus</a></li>
+        <li><a href="../projects.html">Projects</a></li>
+        <li><a href="../blog.html" class="active">Writing</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="post-header">
+      <a class="back-link" href="../blog.html">← All Posts</a>
+      <div class="post-meta-row">
+        <span class="meta-date">January 2025</span>
+        <span class="meta-dot">·</span>
+        <span class="meta-cat">OS / Systems</span>
+      </div>
+      <h1 class="post-headline">What Happens<em>Before main()</em></h1>
+      <div class="post-chips-row">
+        <span class="chip">C</span>
+        <span class="chip">OS</span>
+        <span class="chip">ELF</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <article class="post-article">
+
+      <p>Most programmers think <code>main()</code> is where execution starts. It isn't. By the time your code runs, the OS has already loaded your ELF binary, set up the stack, initialized the heap, resolved dynamic library symbols, and run <code>_start</code> — a function you never wrote.</p>
+
+      <p>Digging into this changes how you think about programs. Your program isn't a standalone thing — it's a guest in the OS's house. The runtime environment is pre-loaded. Signals are configured. File descriptors 0, 1, and 2 are already open, pointing at stdin, stdout, and stderr.</p>
+
+      <h2>The ELF Binary</h2>
+
+      <p>When you compile a C program, the output isn't raw machine code. It's an ELF (Executable and Linkable Format) binary — a structured file with sections: <code>.text</code> for code, <code>.data</code> for initialized globals, <code>.bss</code> for zero-initialized globals, and metadata describing how to load everything into memory.</p>
+
+      <p>The OS reads this format. It maps sections to virtual addresses. It resolves PLT and GOT entries for shared libraries. Then it jumps to <code>_start</code>, not <code>main</code>.</p>
+
+      <pre><code>; Simplified _start in x86-64 assembly
+_start:
+    xor   rbp, rbp          ; mark the outermost stack frame
+    pop   rdi               ; argc
+    mov   rsi, rsp          ; argv
+    call  main
+    mov   edi, eax          ; return value → exit code
+    call  exit</code></pre>
+
+      <h2>The Bootloader Perspective</h2>
+
+      <p>Writing a bootloader made all of this visceral. When you're in the bootloader, none of the comforts exist. There's no stack — you set one up yourself. There's no heap. File descriptors don't exist. The screen is memory-mapped I/O.</p>
+
+      <p>You configure the Global Descriptor Table. You switch from real mode to protected mode. Then, slowly, you build the world that every program running on your system takes completely for granted.</p>
+
+      <h2>Why This Matters</h2>
+
+      <p>Understanding the execution environment before <code>main()</code> makes you a better systems programmer. It explains why global constructors in C++ run before your code. It explains why <code>atexit()</code> handlers run after <code>main</code> returns. It explains why linking order matters.</p>
+
+      <p>Most importantly, it dissolves the magic. Programs aren't magic. They're guests in a very carefully prepared house, and understanding how that house is built is one of the most useful things a programmer can do.</p>
+
+    </article>
+  </div>
+
+  <div class="wrap">
+    <div class="post-nav">
+      <a class="pn-link" href="learning-by-building.html">
+        <span class="pn-label">Previous Post</span>
+        <span class="pn-title">← Learning by Building</span>
+      </a>
+      <div></div><!-- empty right slot -->
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-text">
+      © 2025 Shayan Ijaz &nbsp;·&nbsp;
+      <a href="https://github.com/urshayan/my-website" target="_blank">Source on GitHub</a>
+    </p>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

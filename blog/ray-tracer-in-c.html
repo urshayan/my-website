@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why I Started Writing a Ray Tracer in C — Shayan Ijaz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <!-- one level up: blog/ → root -->
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="post.css" />
+</head>
+<body>
+
+  <!-- nav hrefs: one level up to root -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="../index.html"><span class="prompt">~/</span>shayan_ijaz</a>
+      <ul class="nav-links">
+        <li><a href="../focus.html">Focus</a></li>
+        <li><a href="../projects.html">Projects</a></li>
+        <li><a href="../blog.html" class="active">Writing</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="post-header">
+      <a class="back-link" href="../blog.html">← All Posts</a>
+      <div class="post-meta-row">
+        <span class="meta-date">March 2025</span>
+        <span class="meta-dot">·</span>
+        <span class="meta-cat">Systems</span>
+      </div>
+      <h1 class="post-headline">Why I Started Writing a<em>Ray Tracer in C</em></h1>
+      <div class="post-chips-row">
+        <span class="chip">C</span>
+        <span class="chip">Graphics</span>
+        <span class="chip">Low-level</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <article class="post-article">
+
+      <p>Most ray tracer tutorials go straight for C++ or even Python. I wanted to understand what was actually happening at the memory level — no classes, no smart pointers, no hidden constructors. Just structs, function pointers, and raw math.</p>
+
+      <p>The decision wasn't about masochism. It was about precision. When I read code in a high-level language, I'm always one abstraction removed from the actual computation. C strips that away. Every allocation is explicit. Every pointer is mine to manage. If something breaks, the blame is local.</p>
+
+      <h2>The Geometry Problem</h2>
+
+      <p>Writing a ray tracer forces you to think geometrically at every step. When you trace a ray and compute an intersection, there's no abstraction hiding the dot products and vector normalization. You feel every calculation. It's uncomfortable at first, then clarifying.</p>
+
+      <p>A ray is just an origin point and a direction vector. An intersection test for a sphere is just solving a quadratic equation. When you write it yourself — no <code>glm::vec3</code>, no <code>Ray::intersect()</code> — you remember it. The formula becomes yours.</p>
+
+      <pre><code>typedef struct { float x, y, z; } Vec3;
+
+float dot(Vec3 a, Vec3 b) {
+    return a.x*b.x + a.y*b.y + a.z*b.z;
+}
+
+int ray_sphere(Vec3 ro, Vec3 rd, Vec3 center, float r, float *t) {
+    Vec3 oc = { ro.x-center.x, ro.y-center.y, ro.z-center.z };
+    float a    = dot(rd, rd);
+    float b    = 2.0f * dot(oc, rd);
+    float c    = dot(oc, oc) - r*r;
+    float disc = b*b - 4*a*c;
+    if (disc &lt; 0) return 0;
+    *t = (-b - sqrtf(disc)) / (2.0f * a);
+    return 1;
+}</code></pre>
+
+      <h2>The BVH Problem</h2>
+
+      <p>The biggest lesson so far: the BVH (Bounding Volume Hierarchy) is where naive implementations die. Without it, your scene complexity is O(n) per ray. With it, it drops to O(log n). The difference between a 10-second render and a 100ms one is almost entirely this data structure.</p>
+
+      <p>Building it without a library means building the AABB intersection test by hand, the recursive tree split, and tuning the surface-area heuristic. It's tedious. It's also the only way I've ever truly understood a BVH. Reading about it and implementing it are entirely different experiences.</p>
+
+      <h2>What I'd Tell Myself Before Starting</h2>
+
+      <p>Start with spheres and a fixed camera. Get a pixel on screen. Don't think about BVH, materials, or lights until you can see a grey circle on a black background and know exactly why it's there. The rest follows naturally.</p>
+
+      <p>Also: floating point is your enemy and your only tool. Get comfortable with it early.</p>
+
+    </article>
+  </div>
+
+  <div class="wrap">
+    <div class="post-nav">
+      <div></div><!-- empty left slot -->
+      <a class="pn-link pn-next" href="learning-by-building.html">
+        <span class="pn-label">Next Post</span>
+        <span class="pn-title">Learning by Building →</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-text">
+      © 2025 Shayan Ijaz &nbsp;·&nbsp;
+      <a href="https://github.com/urshayan/my-website" target="_blank">Source on GitHub</a>
+    </p>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

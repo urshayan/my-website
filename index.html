@@ -3,64 +3,193 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shayan Ijaz</title>
-  <link rel="stylesheet" href="assets/css/main.css" />
+  <title>Shayan Ijaz — Systems Programmer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── HOME-SPECIFIC: hero layout ── */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 310px;
+      align-items: center; gap: 80px;
+      padding: 100px 0 60px;
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; right: -180px; top: 50%; transform: translateY(-50%);
+      width: 680px; height: 680px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,168,83,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono); font-size: 11px; color: var(--amber);
+      letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 14px;
+      opacity: 0; animation: rise 0.7s 0.1s ease forwards;
+    }
+    .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--amber-dim); }
+    .hero-name {
+      font-family: var(--display); font-size: clamp(64px, 7vw, 96px);
+      font-weight: 900; line-height: 0.92; letter-spacing: -0.02em; margin-bottom: 28px;
+      opacity: 0; animation: rise 0.7s 0.2s ease forwards;
+    }
+    .hero-name em { display: block; font-style: italic; font-weight: 400; color: var(--amber); font-size: 0.9em; }
+    .hero-tagline {
+      font-family: var(--mono); font-size: 13px; color: var(--muted);
+      letter-spacing: 0.06em; margin-bottom: 44px;
+      opacity: 0; animation: rise 0.7s 0.3s ease forwards;
+    }
+    .hero-bio {
+      font-size: 17px; font-weight: 300; line-height: 1.85;
+      color: rgba(240,234,216,0.82); max-width: 560px;
+      opacity: 0; animation: rise 0.7s 0.4s ease forwards;
+    }
+    .hero-bio p + p { margin-top: 16px; }
+
+    /* ── stat cards ── */
+    .stat-cards {
+      opacity: 0; animation: rise 0.7s 0.5s ease forwards;
+      display: flex; flex-direction: column; gap: 1px;
+      border: 1px solid var(--border-amber);
+    }
+    .stat-card {
+      padding: 20px 24px; background: var(--ink2);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-card:last-child { border-bottom: none; }
+    .stat-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 6px; }
+    .stat-value { font-family: var(--display); font-size: 20px; font-weight: 700; color: var(--cream); }
+    .stat-sub   { font-family: var(--mono); font-size: 11px; color: var(--dim); margin-top: 2px; }
+
+    /* ── nav shortcut tiles ── */
+    .shortcut-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+    }
+    .shortcut {
+      background: var(--ink); padding: 28px 24px;
+      text-decoration: none; display: block; position: relative;
+      transition: background 0.2s; overflow: hidden;
+    }
+    .shortcut::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px; background: var(--amber); transition: width 0.3s;
+    }
+    .shortcut:hover { background: var(--ink2); }
+    .shortcut:hover::after { width: 100%; }
+    .sc-num   { font-family: var(--mono); font-size: 10px; color: var(--dim); letter-spacing: 0.15em; margin-bottom: 12px; }
+    .sc-title { font-family: var(--display); font-size: 20px; font-weight: 700; color: var(--cream); margin-bottom: 6px; }
+    .sc-hint  { font-family: var(--mono); font-size: 11px; color: var(--muted); font-weight: 300; }
+    .sc-arrow {
+      position: absolute; bottom: 20px; right: 20px;
+      font-family: var(--mono); font-size: 14px; color: var(--dim);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .shortcut:hover .sc-arrow { color: var(--amber); transform: translate(3px, -3px); }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 56px; }
+      .stat-cards { max-width: 420px; }
+      .shortcut-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .shortcut-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
-  <header class="site-header">
-    <div class="container">
-      <h1>Shayan Ijaz</h1>
-      <p class="subtitle">Programming, Systems Exploration, and Applied Computing Research</p>
 
-      <nav class="main-nav">
-        <a href="research.html">Research</a>
-        <a href="projects.html">Projects</a>
-        <a href="writing.html">Writing</a>
-        <a href="cv.html">CV</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="about">
-      <h2>About</h2>
-      <p>
-    I spend most of my time experimenting with different programming paradigms and languages, building small prototypes, and documenting what I learn through projects and technical notes.
-     My interests include systems programming, graphics, computer vision, and performance-aware software design.
-    This website serves as a living record of my work:
-    projects, experiments, and ongoing technical exploration.
-      </p>
-
-      <p>
-        I enjoy working with multiple programming languages and tools, using each where it fits best.
-         Much of my work involves building experimental projects, testing ideas, and learning through implementation rather than theory alone.
-      </p>
-    </section>
-
-    <section class="current-work">
-      <h2>Current Focus</h2>
-      <ul>
-        <li>Implementing a ray tracer from scratch in C.</li>
-        <li>Operating system concepts and low-level system behavior</li>
-        <li>Building 2D games using raylib (C++) and Lua,</li>
+  <!-- ═══ NAV (root-level: hrefs are flat filenames) ═══ -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html"><span class="prompt">~/</span>shayan_ijaz</a>
+      <ul class="nav-links">
+        <li><a href="focus.html">Focus</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html">Writing</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
-    </section>
-
-    <section class="navigation-hint">
-      <p>
-        The Explorations are documented under
-        <a href="research.html">Research</a>, while implemented work and code
-        are listed under <a href="projects.html">Projects</a>.
-      </p>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2025 Shayan Ijaz</p>
     </div>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <div class="hero-eyebrow">Systems Programmer &amp; Researcher</div>
+        <h1 class="hero-name">Shayan<em>Ijaz</em></h1>
+        <p class="hero-tagline">Programming · Systems Exploration · Applied Computing Research</p>
+        <div class="hero-bio">
+          <p>I spend most of my time experimenting with different programming paradigms and languages, building small prototypes, and documenting what I learn through projects and technical notes.</p>
+          <p>My interests include systems programming, graphics, computer vision, and performance-aware software design. This site is a living record — projects, experiments, and ongoing exploration.</p>
+        </div>
+      </div>
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-label">Current Build</div>
+          <div class="stat-value">Ray Tracer</div>
+          <div class="stat-sub">Written from scratch in C</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Primary Languages</div>
+          <div class="stat-value">C · C++ · Lua</div>
+          <div class="stat-sub">+ Python, Assembly</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Focus Area</div>
+          <div class="stat-value">Systems &amp; Graphics</div>
+          <div class="stat-sub">OS internals · Game dev · CV</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Status</div>
+          <div class="stat-value" style="color:var(--amber)">Open to Work</div>
+          <div class="stat-sub">Interesting projects welcome</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION SHORTCUT TILES ═══ -->
+  <div class="wrap">
+    <div class="shortcut-grid">
+      <a class="shortcut" href="focus.html">
+        <div class="sc-num">01</div>
+        <div class="sc-title">Current Focus</div>
+        <div class="sc-hint">What I'm working on right now</div>
+        <span class="sc-arrow">↗</span>
+      </a>
+      <a class="shortcut" href="projects.html">
+        <div class="sc-num">02</div>
+        <div class="sc-title">Projects</div>
+        <div class="sc-hint">Code, prototypes, experiments</div>
+        <span class="sc-arrow">↗</span>
+      </a>
+      <a class="shortcut" href="blog.html">
+        <div class="sc-num">03</div>
+        <div class="sc-title">Writing</div>
+        <div class="sc-hint">Technical notes &amp; thinking</div>
+        <span class="sc-arrow">↗</span>
+      </a>
+      <a class="shortcut" href="contact.html">
+        <div class="sc-num">04</div>
+        <div class="sc-title">Contact</div>
+        <div class="sc-hint">Get in touch</div>
+        <span class="sc-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <p class="footer-text">
+      © 2025 Shayan Ijaz &nbsp;·&nbsp;
+      <a href="https://github.com/urshayan/my-website" target="_blank">Source on GitHub</a>
+    </p>
   </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>

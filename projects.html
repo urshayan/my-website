@@ -3,102 +3,181 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projects | Shayan Ijaz</title>
-  <link rel="stylesheet" href="assets/css/main.css" />
+  <title>Projects — Shayan Ijaz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── FILTER BAR ── */
+    .filter-bar { display: flex; gap: 8px; margin-bottom: 48px; flex-wrap: wrap; }
+    .filter-btn {
+      font-family: var(--mono); font-size: 10px; color: var(--muted);
+      background: none; border: 1px solid var(--border); padding: 6px 16px;
+      cursor: pointer; letter-spacing: 0.12em; text-transform: uppercase;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover,
+    .filter-btn.on { color: var(--amber); border-color: var(--amber-dim); background: var(--amber-faint); }
+
+    /* ── PROJECT LIST ── */
+    .project-list { display: flex; flex-direction: column; }
+    .project-row {
+      display: grid; grid-template-columns: 72px 1fr auto;
+      align-items: start; gap: 32px;
+      padding: 36px 0; border-top: 1px solid var(--border);
+      transition: padding-left 0.2s;
+    }
+    .project-row:last-child { border-bottom: 1px solid var(--border); }
+    .project-row:hover { padding-left: 10px; }
+    .project-num   { font-family: var(--mono); font-size: 11px; color: var(--dim); padding-top: 6px; letter-spacing: 0.1em; }
+    .project-title { font-family: var(--display); font-size: 28px; font-weight: 700; margin-bottom: 10px; line-height: 1.1; }
+    .project-desc  { font-size: 15px; color: var(--muted); font-weight: 300; max-width: 520px; line-height: 1.65; }
+    .project-tags  { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+
+    .project-meta  { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; padding-top: 6px; }
+    .project-link {
+      font-family: var(--mono); font-size: 11px; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.1em;
+      padding: 8px 18px; border: 1px solid var(--border);
+      white-space: nowrap; transition: all 0.2s;
+    }
+    .project-link:hover { color: var(--amber); border-color: var(--amber-dim); }
+    .project-status {
+      font-family: var(--mono); font-size: 10px; color: var(--dim);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      border: 1px solid var(--border); padding: 3px 10px;
+    }
+    .project-status.wip { color: var(--amber); border-color: var(--amber-dim); }
+
+    @media (max-width: 720px) {
+      .project-row { grid-template-columns: 52px 1fr; }
+      .project-meta { display: none; }
+    }
+  </style>
 </head>
-
 <body>
-  <header class="site-header">
-    <div class="container">
-      <h1>Projects</h1>
-      <p class="subtitle">Experiments in software, graphics, and systems</p>
 
-      <nav class="main-nav">
-        <a href="index.html">Home</a>
-        <a href="research.html">Research</a>
-        <a href="writing.html">Writing</a>
-        <a href="cv.html">CV</a>
-        <a href="contact.html">Contact</a>
-      </nav>
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html"><span class="prompt">~/</span>shayan_ijaz</a>
+      <ul class="nav-links">
+        <li><a href="focus.html">Focus</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="blog.html">Writing</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </div>
-  </header>
+  </nav>
 
-  <main class="container">
-
-    <section class="project-card">
-      <h2>Color-Switching Game</h2>
-      <p>
-        A simple Color Switching Survival Game implemented in Rust.        
-      </p>
-      <p class="subtitle">
-        Rust · Raylib · GameDev
-      </p>
-      <p>
-        <a href="https://github.com/urshayan/Color-Switching-Game" target="_blank">
-          View on GitHub
-        </a>
-      </p>
-    </section>
-
-
-
-    <section class="project-card">
-      <h2>Tiny ANSI</h2>
-      <p>
-        A small, header-only C/C++ library for producing colorful and styled
-        terminal output using ANSI escape codes.
-      </p>
-      <p class="subtitle">
-        C · C++ · Terminal · Libraries
-      </p>
-      <p>
-        <a href="projects/tinyansi.html">About Tiny Ansi </a> <br>
-        <a href="https://github.com/urshayan/Tiny_Ansi" target="_blank">
-          View on GitHub
-        </a>
-        
-
-      </p>
-    </section>
-
-    <section class="project-card">
-      <h2>KellyOne</h2>
-      <p>
-        KellyOne is a Python-based desktop application that helps traders and
-        investors calculate optimal position sizing using the Kelly Criterion.
-      </p>
-      <p class="subtitle">
-        Python · Tkinter · Quantitative Finance
-      </p>
-      <p>
-        <a href="https://github.com/urshayan/KellyOne" target="_blank">
-          View on GitHub
-        </a>
-      </p>
-    </section>
-
-    <section class="project-card">
-      <h2>Mini Projects</h2>
-      <p>
-        A collection of small implementations exploring individual concepts
-        across programming languages and technical domains.
-      </p>
-      <p class="subtitle">
-        Python · C++ · Systems · Experiments
-      </p>
-      <p>
-        <a href="https://github.com/urshayan/ExploreStuff" target="_blank">
-          View on GitHub
-        </a>
-      </p>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2025 Shayan Ijaz</p>
+  <div class="wrap">
+    <div class="page-header">
+      <div class="eyebrow">Projects</div>
+      <h1 class="page-title">Built &amp; <em>Shipped</em></h1>
+      <p class="page-desc">Code, prototypes, and experiments. Most projects start as a question I can't answer without building something.</p>
     </div>
+  </div>
+
+  <div class="wrap">
+    <div class="section">
+      <!-- Tag filter -->
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn on" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="C">C</button>
+        <button class="filter-btn" data-filter="C++">C++</button>
+        <button class="filter-btn" data-filter="Python">Python</button>
+        <button class="filter-btn" data-filter="Graphics">Graphics</button>
+        <!--<button class="filter-btn" data-filter="Systems">Systems</button>-->
+        <button class="filter-btn" data-filter="Library">Library</button>
+        <button class="filter-btn" data-filter="Rust">Rust</button>
+      </div>
+
+      <div class="project-list" id="projectList">
+
+        <div class="project-row" data-tags="C,Library,Graphics">
+          <div class="project-num">001</div>
+          <div>
+            <div class="project-title">Tiny Ansi</div>
+            <div class="project-desc">A small, header-only C/C++ library for colorful, styled terminal output.</div>
+            <div class="project-tags">
+              <span class="tag">C</span><span class="tag">Library</span><span class="tag">Graphics</span>
+            </div>
+          </div>
+          <div class="project-meta">
+            <span class="project-status wip">WIP</span>
+            <a class="project-link" href="https://github.com/urshayan/Tiny_Ansi" target="_blank">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="project-row" data-tags="Rust,raylib,Game">
+          <div class="project-num">002</div>
+          <div>
+            <div class="project-title">Color-Switching Game</div>
+            <div class="project-desc">A simple colour switching survival game in Rust.</div>
+            <div class="project-tags">
+              <span class="tag">Game</span><span class="tag">Rust</span><span class="tag">raylib</span>
+            </div>
+          </div>
+          <div class="project-meta">
+            <span class="project-status wip">Done</span>
+            <a class="project-link" href="https://github.com/urshayan/Color-Switching-Game" target="_blank">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="project-row" data-tags="C++,ComputerVision,Library">
+          <div class="project-num">003</div>
+          <div>
+            <div class="project-title">tinycv</div>
+            <div class="project-desc">An attempt for a tiny computer vision library</div>
+            <div class="project-tags">
+              <span class="tag">C++</span><span class="tag">ComputerVision</span><span class="tag">Library</span>
+            </div>
+          </div>
+          <div class="project-meta">
+            <span class="project-status wip">WIP</span>
+            <a class="project-link" href="https://github.com/urshayan/tinycv" target="_blank">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="project-row" data-tags="Python,GUI">
+          <div class="project-num">004</div>
+          <div>
+            <div class="project-title">Kelly One</div>
+            <div class="project-desc">A Python Tkinter app that applies the Kelly Criterion to help traders and investors optimize position sizing and manage portfolio risk intelligently. </div>
+            <div class="project-tags">
+              <span class="tag">Python</span><span class="tag">GUI</span>
+            </div>
+          </div>
+          <div class="project-meta">
+            <span class="project-status">Done</span>
+            <a class="project-link" href="https://github.com/urshayan/KellyOne" target="_blank">GitHub →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-text">
+      © 2025 Shayan Ijaz &nbsp;·&nbsp;
+      <a href="https://github.com/urshayan/my-website" target="_blank">Source on GitHub</a>
+    </p>
   </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Tag filter
+    document.getElementById('filterBar').addEventListener('click', function (e) {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.project-row').forEach(row => {
+        row.style.display = (filter === 'all' || (row.dataset.tags || '').includes(filter)) ? '' : 'none';
+      });
+    });
+  </script>
 </body>
 </html>
